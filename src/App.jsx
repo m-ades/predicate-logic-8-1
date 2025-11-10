@@ -13,7 +13,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CancelIcon from '@mui/icons-material/Cancel'
 import { QUESTIONS } from './questions.js'
 
-// Memoized to prevent re-rendering when answers change, preserving MathJax-rendered content
+// prevents mathjax content from re-rendering after every new answer
 const QuestionText = memo(({ text, id }) => (
   <Typography
     variant="body1"
@@ -26,7 +26,7 @@ export default function App() {
   const [answers, setAnswers] = useState({})
   const [pop, setPop] = useState(false)
 
-  // MathJax typesetting: waits for startup promise, then DOM paint, then typesets
+  // startup promise --> DOM paint --> typesets mathjax content
   function runMathJax() {
     const MJ = window.MathJax
     if (!MJ) return
@@ -43,14 +43,10 @@ export default function App() {
       .catch(() => {
       })
   }
-
-  // Initial MathJax typeset on mount
   useEffect(() => {
     runMathJax()
   }, [])
 
-  // Re-typeset when answers change: useLayoutEffect runs after DOM mutations but before paint
-  // Double RAF + debounce ensures all React state updates (including score/pop) complete before MathJax runs
   useLayoutEffect(() => {
     const timeoutId = setTimeout(() => {
       requestAnimationFrame(() => {
@@ -70,8 +66,8 @@ export default function App() {
     )
   }, [answers])
 
-  // Score change triggers pop animation and MathJax re-typeset
-  // MathJax runs with same timing as answers useEffect to batch updates and prevent flickering
+  // score change and re-typeset after new answer
+  // mathjax runs with same timing as answers useEffect to fix flickering
   useEffect(() => {
     setPop(true)
     const t = setTimeout(() => setPop(false), 250)
@@ -95,7 +91,6 @@ export default function App() {
     filter: pop ? 'drop-shadow(0 0 6px #88C6F8)' : 'none',
   }
 
-  // Lock answer after first selection (prevents changing once answered)
   const handleChange = (qid, val) => {
     setAnswers((prev) => (prev[qid] ? prev : { ...prev, [qid]: val }))
   }
@@ -116,11 +111,11 @@ export default function App() {
         }}
       >
         <Typography variant="h5" gutterBottom>
-          chapter 8.1:the syntax of predicate logic & translation
+          Chapter 8.1: The Syntax of Predicate Logic & Translation
         </Typography>
 
         <Typography variant="subtitle1" sx={{ mb: 1 }}>
-          true/false practice set (philo/math/csci 275)
+          true/false practice set (PHILO/MATH/CSCI 275)
         </Typography>
 
         <Typography variant="h6">
