@@ -32,6 +32,8 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          GITHUB_PAGES_BASE: /predicate-logic-8-1/
         run: npm run build
 
       - name: Setup Pages
