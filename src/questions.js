@@ -25,7 +25,7 @@ export const QUESTIONS = [
   { id: 24, text: `$(x)(Fx \\supset Gx)$ does not assert that anything is $F$.`, correct: 'T' },
   { id: 25, text: `“No allies are secure in wartime” may be expressed as $(\\exists x)\\sim(Ax \\cdot Sx)$.`, correct: 'F' },
   { id: 26, text: `“Only bees make honey” translates to $(x)(Hx \\supset Bx)$.`, correct: 'T' },
-  { id: 27, text: `“Every statement has a truth value.`, correct: 'T' },
+  { id: 27, text: `"Every statement has a truth value."`, correct: 'T' },
   { id: 28, text: `“All dogs (D) are mammals (M)” is translated as $(x)(Dx \\cdot Mx)$.`, correct: 'F' },
   { id: 29, text: `A singular statement such as “Van Gogh is a painter” is translated using a constant, not a variable.`, correct: 'T' },
   { id: 30, text: `Universal quantifiers are used to translate singular statements.`, correct: 'F' },
